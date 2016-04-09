@@ -14,6 +14,8 @@ public class ArenaCamera : MonoBehaviour {
     public const float MIN_PITCH = 2;
     public const float MAX_PITCH = 8;
 
+    public bool use360Camera = true;
+
     // Use this for initialization
     void Start () {
 	
@@ -26,12 +28,22 @@ public class ArenaCamera : MonoBehaviour {
         Vector3 newVector = transform.position;
 
         // Move the camera to the center of the two objects
-        newVector = Vector3.Lerp(p1, p2, 0.5f);
+        newVector = Vector3.Lerp(p1, p2, 1.0f);
         Vector3 center = newVector;
 
-        float angle = Vector3.Angle(p1, p2);
-        Debug.Log(angle);
-        transform.rotation = Quaternion.Euler(0, angle, 0);
+
+        float angle;
+        if (!use360Camera) {
+            angle = Vector3.Angle(p1, p2);
+        } else {
+            Vector3 rot = transform.rotation.eulerAngles;
+            float yComp = rot.y;
+            angle = 180 + Mathf.Atan2(p2.x - p1.x, p2.y - p1.y) * Mathf.Rad2Deg; // to Degrees
+            angle = Mathf.LerpAngle(yComp, angle, Time.deltaTime);
+        }
+        // Debug.Log(angle);
+
+        transform.eulerAngles = new Vector3(0, angle, 0);
 
         // Maintain Zoom factor
         float mag = (p2 - p1).magnitude;

@@ -59,9 +59,11 @@ public class AnimationControlScript : MonoBehaviour {
         // Should also work if you plug in a joystick
         if (Input.GetAxisRaw("Vertical2") > 0 || Input.GetAxisRaw("Horizontal2") > 0) {
             anim.SetBool("walkForwards", true);
-        } else if (Input.GetAxisRaw("Vertical2") < 0 || Input.GetAxisRaw("Horizontal2") < 0) {
+        }
+        else if (Input.GetAxisRaw("Vertical2") < 0 || Input.GetAxisRaw("Horizontal2") < 0) {
             anim.SetBool("walkBackwards", true);
-        } else {
+        }
+        else {
             anim.SetBool("walkForwards", false);
             anim.SetBool("walkBackwards", false);
         }
