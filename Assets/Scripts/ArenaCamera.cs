@@ -14,8 +14,6 @@ public class ArenaCamera : MonoBehaviour {
     public const float MIN_PITCH = 2;
     public const float MAX_PITCH = 12;
 
-    public float angle;
-
     // Use this for initialization
     void Start () {
 	
@@ -31,7 +29,7 @@ public class ArenaCamera : MonoBehaviour {
         newVector = Vector3.Lerp(p1, p2, 0.5f);
         Vector3 center = newVector;
 
-        angle = Vector3.Angle(p1, p2);
+        float angle = Vector3.Angle(p1, p2);
         transform.rotation = Quaternion.Euler(0, angle, 0);
 
         // Maintain Zoom factor
