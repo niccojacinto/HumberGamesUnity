@@ -34,6 +34,7 @@ public class Character : MonoBehaviour {
 
     void Update()
     {
+        /*
         if (m_CharacterController.isGrounded)
         {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -45,6 +46,7 @@ public class Character : MonoBehaviour {
         moveDirection.y -= gravity * Time.deltaTime;
 
         m_CharacterController.Move(moveDirection * Time.deltaTime);
+        */
     }
  
 }
