@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*Somehow, this class is responsible for both animation triggers and character movement. */
 public class AnimationControlScript : MonoBehaviour {
     /* Animation Priority:
     If multiple animation conditions are true, the top-most animation on the 'Transitions List' of the state is chosen.
@@ -10,6 +11,8 @@ public class AnimationControlScript : MonoBehaviour {
     Transform myTransform;
     public float speed = 10.0F;
     public float rotationSpeed = 300.0F;
+    public string verticalInputAxis;
+    public string horizontalInputAxis;
 
     Animator anim;
 	// Use this for initialization
@@ -18,22 +21,14 @@ public class AnimationControlScript : MonoBehaviour {
         anim = GetComponent<Animator>();
         myTransform = transform;
 
-        /*
-        // Sets the value
-        anim.SetBool("InConga", true);
-        // Gets the value
-        bool isInConga = anim.GetBool("InConga");*/
-
+        if (speed == 0 || rotationSpeed == 0 || verticalInputAxis == null || horizontalInputAxis == null)
+        {
+            throw new System.Exception("Uninitialized properties in script AnimationControlScript.");
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /* I debated using Triggers over boolean as     parameter types.
-        I chose booleans because you can hold a key to spam an action after the animation ends,
-        while triggers will only activate one action per keydown.
-        It's possible to use 'GetKey' instead of 'GetKeyDown' to replicate this behavior with Triggers,
-        but that would flood the console with debug messages. */
-
         handleKeyDown(KeyCode.Alpha1, "counterHit");
         handleKeyDown(KeyCode.Alpha2, "howCanSheSlap?");
         handleKeyDown(KeyCode.Alpha3, "slash");
@@ -48,8 +43,8 @@ public class AnimationControlScript : MonoBehaviour {
 
         // Debug.Log(Input.GetAxisRaw("Vertical2") + ", " + Input.GetAxisRaw("Horizontal2"));
 
-        float translation = Input.GetAxis("Vertical2") * speed;
-        float rotation = Input.GetAxis("Horizontal2") * rotationSpeed;
+        float translation = Input.GetAxis(verticalInputAxis) * speed;
+        float rotation = Input.GetAxis(horizontalInputAxis) * rotationSpeed;
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
         myTransform.Translate(0, 0, translation);
@@ -57,30 +52,24 @@ public class AnimationControlScript : MonoBehaviour {
 
         // Player1: WASD - Player2: IJKL
         // Should also work if you plug in a joystick
-        if (Input.GetAxisRaw("Vertical2") > 0) {
+        if (Input.GetAxisRaw(verticalInputAxis) > 0) {
             anim.SetBool("walkForwards", true);
+            anim.SetBool("walkBackwards", false);
+        } else if (Input.GetAxisRaw(verticalInputAxis) < 0 ) {
+            anim.SetBool("walkForwards", false);
+            anim.SetBool("walkBackwards", true);
         } else
         {
             anim.SetBool("walkForwards", false);
-        }
-
-        if (Input.GetAxisRaw("Vertical2") < 0) {
-            anim.SetBool("walkBackwards", true);
-        }
-        else {
-            
             anim.SetBool("walkBackwards", false);
         }
-
-
-
-
-
-
-       
-
     }
 
+    /* I debated using Triggers over boolean as     parameter types.
+        I chose booleans because you can hold a key to spam an action after the animation ends,
+        while triggers will only activate one action per keydown.
+        It's possible to use 'GetKey' instead of 'GetKeyDown' to replicate this behavior with Triggers,
+        but that would flood the console with debug messages. */
     private void handleKeyDown(KeyCode kc, string parameter)
     {
         if (Input.GetKeyDown(kc))
