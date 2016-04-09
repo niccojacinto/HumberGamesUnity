@@ -7,13 +7,16 @@ public class AnimationControlScript : MonoBehaviour {
      */
 
 
-
+    Transform myTransform;
+    public float speed = 10.0F;
+    public float rotationSpeed = 10.0F;
 
     Animator anim;
 	// Use this for initialization
 	void Start () {
         // Get the Animator component from your gameObject
         anim = GetComponent<Animator>();
+        myTransform = transform;
 
         /*
         // Sets the value
@@ -41,12 +44,35 @@ public class AnimationControlScript : MonoBehaviour {
         handleKeyDown(KeyCode.Alpha8, "walkForwards");
         handleKeyDown(KeyCode.Alpha9, "walkBackwards");
         handleKeyDown(KeyCode.Alpha0, "death");
-        
-        
-        
-        
-        
-        
+
+
+        // Debug.Log(Input.GetAxisRaw("Vertical2") + ", " + Input.GetAxisRaw("Horizontal2"));
+
+        float translation = Input.GetAxis("Vertical2") * speed;
+        float rotation = Input.GetAxis("Horizontal2") * rotationSpeed;
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+        myTransform.Translate(0, 0, translation);
+        myTransform.Rotate(0, rotation, 0);
+
+        // Player1: WASD - Player2: IJKL
+        // Should also work if you plug in a joystick
+        if (Input.GetAxisRaw("Vertical2") > 0 || Input.GetAxisRaw("Horizontal2") > 0) {
+            anim.SetBool("walkForwards", true);
+        } else if (Input.GetAxisRaw("Vertical2") < 0 || Input.GetAxisRaw("Horizontal2") < 0) {
+            anim.SetBool("walkBackwards", true);
+        } else {
+            anim.SetBool("walkForwards", false);
+            anim.SetBool("walkBackwards", false);
+        }
+
+
+
+
+
+
+
+
 
         /* COPY THIS CODE!
         if (Input.GetKeyDown(KeyCode.Alpha)) {
