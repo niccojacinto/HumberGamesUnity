@@ -30,6 +30,7 @@ public class ArenaCamera : MonoBehaviour {
         Vector3 center = newVector;
 
         float angle = Vector3.Angle(p1, p2);
+        Debug.Log(angle);
         transform.rotation = Quaternion.Euler(0, angle, 0);
 
         // Maintain Zoom factor
