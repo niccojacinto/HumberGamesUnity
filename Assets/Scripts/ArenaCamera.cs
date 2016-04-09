@@ -8,11 +8,11 @@ public class ArenaCamera : MonoBehaviour {
     [SerializeField]
     private GameObject obj2;
 
-    public const float MIN_ZOOM= 2;
+    public const float MIN_ZOOM= 4;
     public const float MAX_ZOOM = 12;
 
     public const float MIN_PITCH = 2;
-    public const float MAX_PITCH = 12;
+    public const float MAX_PITCH = 8;
 
     // Use this for initialization
     void Start () {

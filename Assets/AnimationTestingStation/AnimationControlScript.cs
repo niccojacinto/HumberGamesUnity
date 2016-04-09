@@ -9,7 +9,7 @@ public class AnimationControlScript : MonoBehaviour {
 
     Transform myTransform;
     public float speed = 10.0F;
-    public float rotationSpeed = 10.0F;
+    public float rotationSpeed = 300.0F;
 
     Animator anim;
 	// Use this for initialization
