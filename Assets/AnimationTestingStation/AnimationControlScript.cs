@@ -57,14 +57,18 @@ public class AnimationControlScript : MonoBehaviour {
 
         // Player1: WASD - Player2: IJKL
         // Should also work if you plug in a joystick
-        if (Input.GetAxisRaw("Vertical2") > 0 || Input.GetAxisRaw("Horizontal2") > 0) {
+        if (Input.GetAxisRaw("Vertical2") > 0) {
             anim.SetBool("walkForwards", true);
+        } else
+        {
+            anim.SetBool("walkForwards", false);
         }
-        else if (Input.GetAxisRaw("Vertical2") < 0 || Input.GetAxisRaw("Horizontal2") < 0) {
+
+        if (Input.GetAxisRaw("Vertical2") < 0) {
             anim.SetBool("walkBackwards", true);
         }
         else {
-            anim.SetBool("walkForwards", false);
+            
             anim.SetBool("walkBackwards", false);
         }
 
@@ -73,18 +77,7 @@ public class AnimationControlScript : MonoBehaviour {
 
 
 
-
-
-
-        /* COPY THIS CODE!
-        if (Input.GetKeyDown(KeyCode.Alpha)) {
-            Debug.Log("Setting  to true");
-            anim.SetBool("", true);
-        }else if (Input.GetKeyUp(KeyCode.Alpha)){
-            Debug.Log("Setting  to false");
-            anim.SetBool("", false);
-        }
-        */
+       
 
     }
 
