@@ -28,7 +28,7 @@ public class ArenaCamera : MonoBehaviour {
         Vector3 newVector = transform.position;
 
         // Move the camera to the center of the two objects
-        newVector = Vector3.Lerp(p1, p2, 1.0f);
+        newVector = Vector3.Lerp(p1, p2, 0.5f);
         Vector3 center = newVector;
 
 
