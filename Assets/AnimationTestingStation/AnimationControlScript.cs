@@ -33,7 +33,7 @@ public class AnimationControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        handleKeyDown(KeyCode.Alpha1, "counterHit");
+        //handleKeyDown(KeyCode.Alpha1, "counterHit");
         handleKeyDown(KeyCode.Alpha2, "howCanSheSlap?");
         handleKeyDown(KeyCode.Alpha3, "slash");
         handleKeyDown(KeyCode.Alpha4, "parryUp");
@@ -43,6 +43,8 @@ public class AnimationControlScript : MonoBehaviour {
         handleKeyDown(KeyCode.Alpha8, "walkForwards");
         handleKeyDown(KeyCode.Alpha9, "walkBackwards");
         handleKeyDown(KeyCode.Alpha0, "death");
+
+        handleKeyDown(slash, "counterHit");
 
 
         // Debug.Log(Input.GetAxisRaw("Vertical2") + ", " + Input.GetAxisRaw("Horizontal2"));
@@ -83,6 +85,15 @@ public class AnimationControlScript : MonoBehaviour {
         else if (Input.GetKeyUp(kc))
         {
             Debug.Log("Setting " + parameter + " to false");
+            anim.SetBool(parameter, false);
+        }
+    }
+
+    private void handleKeyDown(string s, string parameter) {
+        bool held = Input.GetButton(s);
+        if (held) {
+            anim.SetBool(parameter, true);
+        } else {
             anim.SetBool(parameter, false);
         }
     }

@@ -204,7 +204,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.67336684
+      - time: 0.07872697
+        functionName: Grunt
+        data: 
+        objectReferenceParameter: {fileID: 191732, guid: d3c6006c49ef2fc48a523be2c5f65c59,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.50586265
         functionName: Slash
         data: 
         objectReferenceParameter: {fileID: 191732, guid: d3c6006c49ef2fc48a523be2c5f65c59,
