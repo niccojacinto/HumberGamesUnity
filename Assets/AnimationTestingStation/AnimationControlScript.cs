@@ -58,8 +58,7 @@ public class AnimationControlScript : MonoBehaviour {
         } else if (Input.GetAxisRaw(verticalInputAxis) < 0 ) {
             anim.SetBool("walkForwards", false);
             anim.SetBool("walkBackwards", true);
-        } else
-        {
+        } else {
             anim.SetBool("walkForwards", false);
             anim.SetBool("walkBackwards", false);
         }

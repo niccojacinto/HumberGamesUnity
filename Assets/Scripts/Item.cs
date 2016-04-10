@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour {
 
     Transform myTransform;
+
 
 
     float rotationSpeed = 2.0f;
@@ -13,7 +14,8 @@ public class Item : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         myTransform = transform;
-        gameObject.GetComponent<Item>().hideFlags = HideFlags.HideInInspector;
+        gameObject.GetComponent<Collider>().isTrigger = true;
+        // gameObject.GetComponent<Item>().hideFlags = HideFlags.HideInInspector;
     }
 	
 	// Update is called once per frame

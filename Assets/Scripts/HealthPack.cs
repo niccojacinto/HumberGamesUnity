@@ -5,8 +5,8 @@ public class HealthPack : Item {
 
     int healthGiven = 5;
 
-    void OnCollisionEnter(Collision collision) {
-        Character charComponent = collision.gameObject.GetComponent<Character>();
+    void OnTriggerEnter(Collider collider) {
+        Character charComponent = collider.gameObject.GetComponent<Character>();
         if (charComponent == null) return;
         onPickup(charComponent);
         Destroy(gameObject);
