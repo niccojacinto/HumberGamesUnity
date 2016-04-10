@@ -2,6 +2,7 @@
 using System.Collections;
 
 /*Somehow, this class is responsible for both animation triggers and character movement. */
+[RequireComponent(typeof(Character))]
 public class AnimationControlScript : MonoBehaviour {
     /* Animation Priority:
     If multiple animation conditions are true, the top-most animation on the 'Transitions List' of the state is chosen.
@@ -9,10 +10,12 @@ public class AnimationControlScript : MonoBehaviour {
 
 
     Transform myTransform;
+    Character character;
     public float speed = 10.0F;
     public float rotationSpeed = 300.0F;
     public string verticalInputAxis;
     public string horizontalInputAxis;
+    public string slash;
 
     Animator anim;
 	// Use this for initialization
@@ -20,6 +23,7 @@ public class AnimationControlScript : MonoBehaviour {
         // Get the Animator component from your gameObject
         anim = GetComponent<Animator>();
         myTransform = transform;
+        character = GetComponent<Character>();
 
         if (speed == 0 || rotationSpeed == 0 || verticalInputAxis == null || horizontalInputAxis == null)
         {
