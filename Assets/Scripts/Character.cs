@@ -29,8 +29,7 @@ public class Character : MonoBehaviour {
 
     public void Slash() {
         RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, Vector3.left, out hit, 20.0f)) { // Not Vector3.forward only because the characters are not facing the Z direction
+        if (Physics.SphereCast(transform.position,1.0f, transform.forward, out hit, 1.0f)) { // Not Vector3.forward only because the characters are not facing the Z direction
 
             Debug.Log(hit.collider.gameObject.tag);
             Character chara = hit.collider.gameObject.GetComponent<Character>();
@@ -38,11 +37,7 @@ public class Character : MonoBehaviour {
 
             chara.health -= lightAttack;
         }
-        else {
-            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //cube.transform.position = (transform.position + Vector3.forward * 10.0f);
-            Debug.Log("Didn't Hit Anything");
-        }
+
     }
  
 }
