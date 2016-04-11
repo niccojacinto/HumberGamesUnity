@@ -97,4 +97,8 @@ public class AnimationControlScript : MonoBehaviour {
             anim.SetBool(parameter, false);
         }
     }
+
+    public void Die() {
+        anim.SetBool("death", true);
+    }
 }

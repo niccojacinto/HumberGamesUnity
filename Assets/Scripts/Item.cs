@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour {
 

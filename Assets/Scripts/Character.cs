@@ -9,7 +9,7 @@ public class Character : MonoBehaviour {
     public int health = 100;
 
     int heavyAttack = 40;
-    int lightAttack = 15;
+    int lightAttack = 20;
 
     public AudioClip sfxgrunt;
     public AudioClip sfxpain;
@@ -45,8 +45,14 @@ public class Character : MonoBehaviour {
             if (chara == null) return;
 
             hit.collider.gameObject.GetComponent<AudioSource>().PlayOneShot(sfxpain);
+
+
             audio.PlayOneShot(sfxslice);
             chara.health -= lightAttack;
+
+            if (chara.health <= 0) {
+                hit.collider.gameObject.GetComponent<AnimationControlScript>().Die();
+            }
         }
 
     }
