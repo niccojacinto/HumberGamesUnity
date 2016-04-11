@@ -8,8 +8,8 @@ public class Character : MonoBehaviour {
 
     public int health = 100;
 
-    int heavyAttack = 40;
-    int lightAttack = 20;
+    public int heavyAttack = 35;
+    public int lightAttack = 20;
 
     public AudioClip sfxgrunt;
     public AudioClip sfxpain;
@@ -51,6 +51,33 @@ public class Character : MonoBehaviour {
             chara.health -= lightAttack;
 
             if (chara.health <= 0) {
+                chara.health = 0; //:D
+                hit.collider.gameObject.GetComponent<AnimationControlScript>().Die();
+            }
+        }
+
+    }
+
+    public void SuperShieldBash()
+    {
+
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 1.0f, transform.forward, out hit, 1.337f))
+        { // Not Vector3.forward only because the characters are not facing the Z direction
+
+            Debug.Log(hit.collider.gameObject.tag);
+            Character chara = hit.collider.gameObject.GetComponent<Character>();
+            if (chara == null) return;
+
+            hit.collider.gameObject.GetComponent<AudioSource>().PlayOneShot(sfxpain);
+
+
+            audio.PlayOneShot(sfxslice);
+            chara.health -= heavyAttack;
+
+            if (chara.health <= 0)
+            {
+                chara.health = 0; //:D
                 hit.collider.gameObject.GetComponent<AnimationControlScript>().Die();
             }
         }
@@ -59,6 +86,16 @@ public class Character : MonoBehaviour {
 
     public void Grunt() {
         audio.PlayOneShot(sfxgrunt);
+    }
+
+    public void DisableMovement()
+    {
+        this.GetComponent<AnimationControlScript>().DisableMovement();
+    }
+
+    public void EnableMovement()
+    {
+        this.GetComponent<AnimationControlScript>().EnableMovement();
     }
 
  

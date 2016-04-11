@@ -15,15 +15,20 @@ public class AnimationControlScript : MonoBehaviour {
     public float rotationSpeed = 300.0F;
     public string verticalInputAxis;
     public string horizontalInputAxis;
-    public string slash;
+    public string light;
+    public string heavy;
 
     Animator anim;
+    bool alive;
+    bool canMove;
 	// Use this for initialization
 	void Start () {
         // Get the Animator component from your gameObject
         anim = GetComponent<Animator>();
         myTransform = transform;
         character = GetComponent<Character>();
+        alive = true;
+        canMove = true;
 
         if (speed == 0 || rotationSpeed == 0 || verticalInputAxis == null || horizontalInputAxis == null)
         {
@@ -33,7 +38,8 @@ public class AnimationControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //handleKeyDown(KeyCode.Alpha1, "counterHit");
+        
+        /* only a memory.
         handleKeyDown(KeyCode.Alpha2, "howCanSheSlap?");
         handleKeyDown(KeyCode.Alpha3, "slash");
         handleKeyDown(KeyCode.Alpha4, "parryUp");
@@ -43,12 +49,18 @@ public class AnimationControlScript : MonoBehaviour {
         handleKeyDown(KeyCode.Alpha8, "walkForwards");
         handleKeyDown(KeyCode.Alpha9, "walkBackwards");
         handleKeyDown(KeyCode.Alpha0, "death");
+        */
 
-        handleKeyDown(slash, "counterHit");
+        handleKeyDown(light, "counterHit");
+        handleKeyDown(heavy, "shieldBash");
 
+        if (alive && canMove) { 
+            handleMovement();
+        }
+    }
 
-        // Debug.Log(Input.GetAxisRaw("Vertical2") + ", " + Input.GetAxisRaw("Horizontal2"));
-
+    private void handleMovement()
+    {
         float translation = Input.GetAxis(verticalInputAxis) * speed;
         float rotation = Input.GetAxis(horizontalInputAxis) * rotationSpeed;
         translation *= Time.deltaTime;
@@ -58,13 +70,17 @@ public class AnimationControlScript : MonoBehaviour {
 
         // Player1: WASD - Player2: IJKL
         // Should also work if you plug in a joystick
-        if (Input.GetAxisRaw(verticalInputAxis) > 0) {
+        if (Input.GetAxisRaw(verticalInputAxis) > 0)
+        {
             anim.SetBool("walkForwards", true);
             anim.SetBool("walkBackwards", false);
-        } else if (Input.GetAxisRaw(verticalInputAxis) < 0 ) {
+        }
+        else if (Input.GetAxisRaw(verticalInputAxis) < 0)
+        {
             anim.SetBool("walkForwards", false);
             anim.SetBool("walkBackwards", true);
-        } else {
+        }
+        else {
             anim.SetBool("walkForwards", false);
             anim.SetBool("walkBackwards", false);
         }
@@ -90,15 +106,31 @@ public class AnimationControlScript : MonoBehaviour {
     }
 
     private void handleKeyDown(string s, string parameter) {
-        bool held = Input.GetButton(s);
-        if (held) {
+        if (Input.GetButtonDown(s)) {
+            Debug.Log("Setting " + parameter + " to true");
             anim.SetBool(parameter, true);
-        } else {
+        } else if (Input.GetButtonUp(s))
+        {
+            Debug.Log("Setting " + parameter + " to false");
             anim.SetBool(parameter, false);
         }
     }
 
     public void Die() {
         anim.SetBool("death", true);
+        alive = false;
+    }
+    
+    public void DisableMovement()
+    {
+        canMove = false;
+        Debug.Log("Disabled movement.");
+    }
+
+
+    public void EnableMovement()
+    {
+        canMove = true;
+        Debug.Log("Enabled movement.");
     }
 }
